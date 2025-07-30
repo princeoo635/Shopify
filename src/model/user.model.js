@@ -2,39 +2,39 @@ import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-const userSchema = new mongoose.schema({
+const userSchema = new mongoose.Schema({
     userName:{
         type:String,
-        requrired:true,
+        required:true,
         unique:true,
-        lowerCase:true,
+        lowercase:true,
         trim:true,
         index:true
     },
     email:{
         type:String,
-        requrired:true,
+        required:true,
         unique:true,
-        lowerCase:true,
+        lowercase:true,
         trim:true
     },
     fullName:{
         type:String,
-        requrired:true,
+        required:true,
         trim:true
     },
     password:{
         type:String,
-        requrired:true,
+        required:true,
     },
     profileImage:{
         type:String,
-        requrired:true
+        required:true
     },
     role:{
         type:String,
-        enum:[ADMIN,USER],
-        default:USER
+        enum:["ADMIN","USER"],
+        default:"USER"
     },
     accessToken:{
         type:String,
@@ -47,15 +47,15 @@ const userSchema = new mongoose.schema({
 //Hash Password
 userSchema.pre("save",async function(next) {
     if(!this.isModified("password")) return next();
-    this.password=bcrypt.hash(this.password , 12)
+    this.password=await bcrypt.hash(this.password , 12)
     next()
 })
 //Check correct Password
-userSchema.method.isPasswordCorrect=async function(password) {
+userSchema.methods.isPasswordCorrect=async function(password) {
     return await bcrypt.compare(password,this.password)
 }
 //accesstoken
-userSchema.method.generateAccessToken=async function(){
+userSchema.methods.generateAccessToken= function(){
     return jwt.sign({
         _id:this._id,
         email:this.email,
@@ -67,7 +67,7 @@ userSchema.method.generateAccessToken=async function(){
 )
 }
 //refreshtoken
-userSchema.method.generateRefreshToken=async function(){
+userSchema.methods.generateRefreshToken= function(){
     return jwt.sign({
         _id:this._id
     },
