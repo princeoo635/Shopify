@@ -81,6 +81,7 @@ const loggedInUser=await User.findById(user._id)
 .select('-password -refreshToken -accessToken');
 
 return res.status(200)
+.cookie("accessToken",accessToken,option)
 .cookie("refreshToken",refreshToken,option)
 .json(
     new ApiResponse(200,
