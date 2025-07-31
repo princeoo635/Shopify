@@ -121,9 +121,35 @@ const getCurrentUser=asyncHandler(async (req,res)=>{
     )
 })
 
+//update profile image
+const changeProfile =asyncHandler(
+    async(req,res)=>{
+        const profileImageLocalPath =req.file?.path;
+        if(!profileImageLocalPath){
+            throw new ApiError(400,"profile image is required.")
+        }
+        const profileImage= await uploadOnCloudinary(profileImageLocalPath)
+        if(!profileImage.url){
+            throw new ApiError(400,"unable to upload on cloudinary.")
+        }
+        const user=await User.findByIdAndUpdate(
+            req.user._id,
+            {
+                $set:{profileImage:profileImage.url}
+            },
+            {
+                new:true
+            }
+        ).select('-password -refreshToken -accessToken')
+        return res.status(200)
+        .json(new ApiResponse(200,user,"profile image updated successfully."))
+    }
+)
+
 export {
     registerUser,
     loginUser,
     logoutUser,
-    getCurrentUser
+    getCurrentUser,
+    changeProfile
 }
