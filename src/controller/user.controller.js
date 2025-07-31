@@ -17,7 +17,7 @@ const generateAccessTokenAndRefreshToken = async(userId)=>{
         const refreshToken = user.generateRefreshToken()
         user.refreshToken=refreshToken
         user.accessToken=accessToken
-        await User.save({validateBeforeSave: false})
+        await user.save({validateBeforeSave: false})
         return {accessToken,refreshToken}
     }catch(error){
        throw new ApiError(500,"Something went wrong while generating refresh and access token")  
@@ -72,11 +72,11 @@ const user = await User.findOne({
 if(!user){
     throw new ApiError(404,"User does not exists.")
 }
-const isPasswordValid = await User.isPasswordCorrect(password)
+const isPasswordValid = await user.isPasswordCorrect(password)
 if(!isPasswordValid){
     throw new ApiError(401,"Invalid user credentials.")
 }
-const {accessToken,refreshToken} = await generateAccessAndRefreshToken(user._id)
+const {accessToken,refreshToken} = await generateAccessTokenAndRefreshToken(user._id)
 const loggedInUser=await User.findById(user._id)
 .select('-password -refreshToken -accessToken');
 
@@ -95,7 +95,9 @@ return res.status(200)
 })
 
 
+
 export {
     registerUser,
-    loginUser
+    loginUser,
+    logoutUser
 }
