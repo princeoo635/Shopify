@@ -94,7 +94,25 @@ return res.status(200)
 )
 })
 
-
+//logout
+const logoutUser = asyncHandler(async(req,res)=>{
+   await User.findByIdAndUpdate(
+    req.user._id,
+    {
+        $unset:{
+            refreshToken:"",
+            accessToken:""
+        }
+    },{
+        new: true
+    });
+    return res.status(200)
+    .clearCookie("refreshToken",option)
+    .clearCookie("accessToken",option)
+    .json(
+        new ApiResponse(200,{},"User logout successfully.")
+    )
+})
 
 export {
     registerUser,
