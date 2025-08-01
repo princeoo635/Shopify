@@ -1,7 +1,11 @@
 import express, { urlencoded } from 'express'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
+import ejs from "ejs"
+import path from 'path'
 const app =express()
+app.set("view engine",'ejs')
+app.set("views",path.resolve('./views'))
 app.use(cors({
     origin:process.env.CORS_ORIGIN,
     credentials:true
