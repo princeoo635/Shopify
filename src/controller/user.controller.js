@@ -145,11 +145,31 @@ const changeProfile =asyncHandler(
         .json(new ApiResponse(200,user,"profile image updated successfully."))
     }
 )
+//update user info
+const updateUserDetail=asyncHandler(
+    async(req,res)=>{
+        const {fullName,email,userName} =req.body
+        if(!(fullName&&email&&userName)){
+            throw new ApiError(400,"fullName,userName and email is required.")
+        }
+        const user=await User.findByIdAndUpdate(
+            req.user._id,
+            {
+                $set:{fullName,email,userName}
+            },{
+                new:true
+            }
+        ).select('-password -refreshToken -accessToken')
+        return res.status(200)
+        .json(new ApiResponse(200,user,"User details are updated."))
+    }
+)
 
 export {
     registerUser,
     loginUser,
     logoutUser,
     getCurrentUser,
-    changeProfile
+    changeProfile,
+    updateUserDetail
 }
