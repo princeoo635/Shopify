@@ -55,9 +55,9 @@ async (req,res,next)=>{
     if(!createdUser){
         throw new ApiError(500,"unable to register user.")
     }
-    return res.status(201).json(
-        new ApiResponse(201,createdUser,"User created successfully.")
-    )
+    return res.status(201)
+    // .json(new ApiResponse(201,createdUser,"user created successfully."))
+    .render("login", {createdUser})
 });
 
 //logged in User
@@ -83,13 +83,19 @@ const loggedInUser=await User.findById(user._id)
 return res.status(200)
 .cookie("accessToken",accessToken,option)
 .cookie("refreshToken",refreshToken,option)
+// .json(new ApiResponse(
+//     200,{
+//         user:loggedInUser,
+//             accessToken,
+//             refreshToken
+//     },"user logged in successfully."
+// ))
 .render("home",
         {
             user:loggedInUser,
             accessToken,
             refreshToken
-        }
-    )
+        })
 
 })
 
