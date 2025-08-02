@@ -6,9 +6,13 @@ const home=asyncHandler(async(req,res)=>{
 const login=asyncHandler(async(req,res)=>{
     res.render("login")
 })
+const register=asyncHandler(async(req,res)=>{
+    res.render("register")
+})
 
 
 export {
     home,
-    login
+    login,
+    register
 }
