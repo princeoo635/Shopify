@@ -15,6 +15,9 @@ const updateUser=asyncHandler(async(req,res)=>{
 const profileUpdate=asyncHandler(async(req,res)=>{
     res.render("profileUpdate")
 })
+const changePassword=asyncHandler(async(req,res)=>{
+    res.render("changePassword")
+})
 
 
 export {
@@ -22,5 +25,6 @@ export {
     login,
     register,
     updateUser,
-    profileUpdate
+    profileUpdate,
+    changePassword
 }
