@@ -12,11 +12,15 @@ const register=asyncHandler(async(req,res)=>{
 const updateUser=asyncHandler(async(req,res)=>{
     res.render("updateUser",{user:req.user})
 })
+const profileUpdate=asyncHandler(async(req,res)=>{
+    res.render("profileUpdate")
+})
 
 
 export {
     home,
     login,
     register,
-    updateUser
+    updateUser,
+    profileUpdate
 }
