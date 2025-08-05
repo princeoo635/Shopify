@@ -148,7 +148,8 @@ const changeProfile =asyncHandler(
             }
         ).select('-password -refreshToken -accessToken')
         return res.status(200)
-        .json(new ApiResponse(200,user,"profile image updated successfully."))
+        // .json(new ApiResponse(200,user,"profile image updated successfully."))
+        .render("home",{user:user})
     }
 )
 //update user info
