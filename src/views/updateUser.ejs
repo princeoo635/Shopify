@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <%- include('components/head') %>
+    <title>update page</title>
+</head>
+<body>
+    <%- include('components/nav') %>
+    <h1 class="text-center h1">UPDATE DETAILS</h1>
+    <form class="container" method="post" action="/api/v1/users/updateUser">
+    <div class="mb-3">
+  <label for="formGroupExampleInput" class="form-label">Full Name</label>
+  <input type="text" class="form-control" id="formGroupExampleInput" name="fullName" value="<%= locals.user ? locals.user.fullName : '' %>">
+</div>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email</label>
+    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= locals.user ? locals.user.email : '' %>">
+  </div>
+  <div class="mb-3">
+  <label for="formGroupExampleInput" class="form-label">UserName</label>
+  <input type="text" class="form-control" id="formGroupExampleInput" name="userName"
+  value="<%= locals.user ? locals.user.userName : '' %>">
+    </div>
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>
+    <%- include('components/script') %>
+</body>
+</html>
