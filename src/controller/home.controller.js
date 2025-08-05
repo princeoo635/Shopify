@@ -9,10 +9,14 @@ const login=asyncHandler(async(req,res)=>{
 const register=asyncHandler(async(req,res)=>{
     res.render("register")
 })
+const updateUser=asyncHandler(async(req,res)=>{
+    res.render("updateUser",{user:req.user})
+})
 
 
 export {
     home,
     login,
-    register
+    register,
+    updateUser
 }
