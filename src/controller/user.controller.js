@@ -114,9 +114,10 @@ const logoutUser = asyncHandler(async(req,res)=>{
     return res.status(200)
     .clearCookie("refreshToken",option)
     .clearCookie("accessToken",option)
-    .json(
-        new ApiResponse(200,{},"User logout successfully.")
-    )
+    .render("home")
+    // .json(
+    //     new ApiResponse(200,{},"User logout successfully.")
+    // )
 })
 
 const getCurrentUser=asyncHandler(async (req,res)=>{
@@ -166,7 +167,8 @@ const updateUserDetail=asyncHandler(
             }
         ).select('-password -refreshToken -accessToken')
         return res.status(200)
-        .json(new ApiResponse(200,user,"User details are updated."))
+        // .json(new ApiResponse(200,user,"User details are updated."))
+        .render("home",{user:user})
     }
 )
 
