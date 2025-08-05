@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <%- include('components/head') %>
+    <title>Login page</title>
+</head>
+<body>
+    <%- include('components/nav') %>
+    <h1 class="text-center h1">PROFILE IMAGE UPDATE</h1>
+    <form class="container" method="post" action="/api/v1/users/profileUpdate" enctype="multipart/form-data">
+  <div class="mb-3">
+  <label for="formFile" class="form-label">Profile Image</label>
+  <input class="form-control" type="file" id="formFile" name="profileImage">
+</div>
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>
+    <%- include('components/script') %>
+</body>
+</html>
