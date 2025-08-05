@@ -189,7 +189,8 @@ const changePassword=asyncHandler(
         const updatedUser=await user.save({ validateBeforeSave: true })
        const { password, refreshToken, accessToken, ...safeUser } = updatedUser.toObject();
         return res.status(200)
-        .json(new ApiResponse(200,safeUser,"User password is updated."))
+        // .json(new ApiResponse(200,safeUser,"User password is updated."))
+        .render("home",{user:safeUser})
     }
 )
 
